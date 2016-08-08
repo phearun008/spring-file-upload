@@ -21,19 +21,39 @@
 
 	<center>
 		<h1>File Upload With Angular AJAX To Specific Folder</h1><hr>
+
 		<code ng-bind="message"></code><br>
 		<form ng-submit = "upload($event)">
-			<input type="text" ng-model="folder" placeholder="folder to upload"/>
-			<input type="file" id="file" name="file" multiple>
-			<input type="submit" value="Upload"/> 
+			<table>
+				<tr>
+					<td>Folder</td>
+					<td>: <input type="text" ng-model="folder" placeholder="folder to upload"/></td>
+				</tr>
+				<tr>
+					<td>File(multiple)</td>
+					<td>: <input type="file" id="file" name="file" multiple></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>: <input type="submit" value="Upload"/></td>
+				</tr>
+				<tr>
+					<td>File(single)</td>
+					<td>: <input type="file" id="myFile"></td>
+				</tr>
+			</table>
 		</form>
-		<img ng-repeat="img in images" ng-src="{{filePath}}/{{img}}">
+		<br><img ng-repeat="img in images" ng-src="{{filePath}}/{{img}}">
+
 	</center>
 	
 	<script>
 		var app = angular.module('fileApp', []);
 		app.controller('fileCtrl', function($scope, $http){
-			 
+			
+			var FILE = {};
+			
+			//TODO: on submit event, multiple file
 			$scope.upload = function(event){
 				event.preventDefault();
 
@@ -42,6 +62,21 @@
 				for(var i=0; i<files.length; i++)
 					frmData.append("files", files[i]);
 				
+				FILE.upload(frmData);
+			};
+			
+			
+			//TODO: onchange event upload, signle file
+			document.getElementById('myFile').onchange = function(){
+				var frmData = new FormData();
+				var files = angular.element('#myFile')[0].files;
+				frmData.append("files", files[0]);
+				FILE.upload(frmData);
+			};
+			
+			
+			//TODO: upload file to server
+			FILE.upload = function(frmData){
 				$http({
 					url: 'http://localhost:5555/api/v1/upload',
 					params: {
