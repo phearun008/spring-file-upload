@@ -16,4 +16,9 @@ public class ViewController {
 	public String angularPage(){
 		return  "angular";
 	}
+	
+	@RequestMapping(value = "/upload-folder", method = RequestMethod.GET)
+	public String uploadToFolder(){
+		return  "upload-to-folder";
+	}
 }
