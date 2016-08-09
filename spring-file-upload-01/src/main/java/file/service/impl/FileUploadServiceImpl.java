@@ -27,19 +27,19 @@ public class FileUploadServiceImpl implements FileUploadService{
 		File fileUpload = new File();
 		
 		if(files.isEmpty()){
+			Console.logError("File is empty!");
 			fileUpload.setMessage("File is not present! Please choose file to upload!!!");
-			return fileUpload;
-		}
-		if(folder=="" || folder==null)
-			folder = "default";
-		
-		String UPLOAD_PATH = "/opt/project/" + folder;
-		
-		java.io.File path = new java.io.File(UPLOAD_PATH);
-		if(!path.exists())
-			path.mkdirs();
-		
-		if (!files.isEmpty()) {
+			
+		}else{
+			
+			if(folder=="" || folder==null)
+				folder = "default";
+			String UPLOAD_PATH = "/opt/project/" + folder;
+			
+			java.io.File path = new java.io.File(UPLOAD_PATH);
+			if(!path.exists())
+				path.mkdirs();
+			
 			List<String> names = new ArrayList<>();
 			for(MultipartFile file: files){
 				String fileName = file.getOriginalFilename();
@@ -56,10 +56,6 @@ public class FileUploadServiceImpl implements FileUploadService{
 			fileUpload.setServerPath(UPLOAD_PATH);
 			fileUpload.setNames(names);
 			fileUpload.setMessage("File has been uploaded successfully!!!");
-			
-		} else { 
-			Console.logError("File is empty!");
-			fileUpload.setMessage("File is empty!");
 		}
 		return fileUpload;
 	}
