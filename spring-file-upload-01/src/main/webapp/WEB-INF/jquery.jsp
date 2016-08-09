@@ -10,7 +10,8 @@
 <body>
 
 	<center>
-		<h1>File Upload With Jquery Ajax</h1><hr>
+		<h1>File Upload With JQUERY AJAX</h1><hr>
+		<code id="message"></code>
 		<form id="frmUpload">
 			<input type="file" id="file" name="file" multiple>
 			<input type="submit" value="Upload"/> 
@@ -42,6 +43,7 @@
  		  	        },
 					success: function(response){
 						console.log(response);
+						$('#message').html(response.message);
 					},
 					error: function(response){
 						console.log(response);

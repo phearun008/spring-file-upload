@@ -12,6 +12,7 @@
 
 	<center>
 		<h1>File Upload With Angular Ajax</h1><hr>
+		<code ng-bind="message"></code>
 		<form ng-submit = "upload($event)">
 			<input type="file" id="file" name="file" multiple>
 			<input type="submit" value="Upload"/> 
@@ -38,6 +39,7 @@
 		            headers: {'Content-Type': undefined}
 				}).then(function(response){
 					console.log(response);
+					$scope.message = response.data.message;
 				}, function(response){
 					console.log(response);
 				});

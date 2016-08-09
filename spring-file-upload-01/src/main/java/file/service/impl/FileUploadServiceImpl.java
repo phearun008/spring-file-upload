@@ -43,7 +43,7 @@ public class FileUploadServiceImpl implements FileUploadService{
 			List<String> names = new ArrayList<>();
 			for(MultipartFile file: files){
 				String fileName = file.getOriginalFilename();
-				fileName = UUID.randomUUID().toString() + "." + fileName.substring(fileName.lastIndexOf(".") + 1);
+				fileName = UUID.randomUUID() + "." + fileName.substring(fileName.lastIndexOf(".") + 1);
 				try {
 					Files.copy(file.getInputStream(), Paths.get(UPLOAD_PATH, fileName));
 					names.add(fileName);
